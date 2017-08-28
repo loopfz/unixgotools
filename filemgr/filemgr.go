@@ -56,7 +56,9 @@ func SetReadCmd(cmd string) {
 // ReadFile reads target file using the configured file reader bin
 func ReadFile(path string) (string, error) {
 
+	lock.Lock()
 	cmdArgs := []string{"-c", readCmd + " " + path}
+	lock.Unlock()
 
 	cmd := exec.Command("sh", cmdArgs...)
 
@@ -92,7 +94,9 @@ func ReadFile(path string) (string, error) {
 // WriteFile writes target file (passing content through stdin) using the configured filr writer bin
 func WriteFile(path, content string) error {
 
+	lock.Lock()
 	cmdArgs := []string{"-c", writeCmd + " " + path}
+	lock.Unlock()
 
 	cmd := exec.Command("sh", cmdArgs...)
 
