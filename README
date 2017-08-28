@@ -1,0 +1,10 @@
+A collection of packages useful for developing unix CLI tools in go
+
+- editor:
+    Package editor lets the user edit either arbitrary text or a JSON representation of an arbitrary object
+    in their text editor of choice (default is vi).
+
+- filemgr:
+    Package filemgr provides provides file read/write functions using external binaries.
+    This is especially useful if you want to use e.g. gpg, while letting the user override it
+    if necessary.
