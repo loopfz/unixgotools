@@ -15,7 +15,7 @@ import (
 // Edit runs the user's text editor with arbitrary initial content,
 // then it lets the user edit it and returns the edited result.
 func Edit(content string) (string, error) {
-	filename := fmt.Sprintf("/tmp/tmpeditor%s", uuid.NewV4().String())
+	filename := fmt.Sprintf("/tmp/tmpeditor%s", uuid.Must(uuid.NewV4()).String())
 
 	err := ioutil.WriteFile(filename, []byte(content), 0600)
 	if err != nil {
