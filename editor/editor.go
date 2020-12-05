@@ -3,6 +3,7 @@
 package editor
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -58,9 +59,22 @@ func EditJSONTarget(i interface{}, target interface{}) error {
 	if err != nil {
 		return err
 	}
-	edited, err := Edit(string(j))
-	if err != nil {
-		return err
+	var correctContent bool
+	for !correctContent {
+		edited, err := Edit(string(j))
+		if err != nil {
+			return err
+		}
+
+		err = json.Unmarshal([]byte(edited), target)
+		if err == nil {
+			correctContent = true
+			break
+		}
+
+		j = []byte(edited)
+		fmt.Printf("failed to unmarshal edited content: %s.\nPress enter to edit", err)
+		bufio.NewReader(os.Stdin).ReadBytes('\n')
 	}
-	return json.Unmarshal([]byte(edited), target)
+	return nil
 }
